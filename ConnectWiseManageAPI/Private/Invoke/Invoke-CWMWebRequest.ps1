@@ -42,6 +42,9 @@
         $prevProgressPreference = $global:ProgressPreference
         $global:ProgressPreference = 'SilentlyContinue'
 
+        if ((Get-Command Invoke-RestMethod | Select-Object -ExpandProperty Parameters).ContainsKey("AllowInsecureRedirect")) {
+            $arguments.AllowInsecureRedirect = $true
+        }
         $Result = Invoke-WebRequest @Arguments -UseBasicParsing
 
         $global:ProgressPreference = $prevProgressPreference
